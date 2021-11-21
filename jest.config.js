@@ -1,9 +1,11 @@
-const baseConfig = {
+module.exports = {
   roots: ['<rootDir>'],
+  testEnvironment: 'node',
+  testMatch: ['**/*.spec.ts'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.ts', '**/*.tsx', '!**/*.d.ts', '!cdk.out/**/*', '!bin/**/*', '!esbuild.ts'],
+  collectCoverageFrom: ['**/*.ts', '!**/*.d.ts', '!cdk.out/**/*', '!cdk/rds-iam-auth.ts'],
   coverageThreshold: {
     global: {
       branches: 100,
@@ -12,11 +14,4 @@ const baseConfig = {
     },
   },
   setupFilesAfterEnv: ['./jest.setup.ts'],
-};
-
-module.exports = {
-  projects: [
-    { ...baseConfig, displayName: 'dom', testEnvironment: 'jsdom', testMatch: ['**/*.test.tsx'] },
-    { ...baseConfig, displayName: 'node', testEnvironment: 'node', testMatch: ['**/*.test.ts'] },
-  ],
 };

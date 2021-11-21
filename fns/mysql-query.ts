@@ -19,6 +19,7 @@ export const handler = async (): Promise<
       mysql_clear_password: () => (): string => {
         return signer.getAuthToken({
           hostname: process.env.DB_HOSTNAME,
+          port: 3306,
           region: process.env.AWS_REGION,
           username: iamUser,
         });

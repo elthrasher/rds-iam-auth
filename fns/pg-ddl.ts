@@ -27,10 +27,10 @@ const getConnection = async (): Promise<Client> => {
     const { password, dbname: database, host, username: user } = JSON.parse(SecretString);
 
     client = new Client({
-      connectionTimeoutMillis: 10000,
       database,
       host,
       password,
+      port: 5432,
       ssl: true,
       user,
     });
@@ -62,7 +62,9 @@ export const handler = async (
 
         for (const stmt of statements) {
           try {
+            console.log('executing', stmt);
             await connection.query(stmt);
+            console.log('ran', stmt);
           } catch (e) {
             console.error('failed sql: ', stmt);
             console.error(e);

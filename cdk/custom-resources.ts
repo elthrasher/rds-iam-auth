@@ -1,6 +1,6 @@
 import { RetentionDays } from '@aws-cdk/aws-logs';
 import { DatabaseCluster } from '@aws-cdk/aws-rds';
-import { CustomResource, Stack } from '@aws-cdk/core';
+import { ArnFormat, CustomResource, Stack } from '@aws-cdk/core';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId, Provider } from '@aws-cdk/custom-resources';
 
 import { LambdaFunctions } from './lambda';
@@ -41,7 +41,7 @@ export const createCustomResources = (
  * https://github.com/aws/aws-cdk/issues/11851#issuecomment-834057082
  */
 export const getDBUserArn = (scope: Stack, cluster: DatabaseCluster, name: string): string => {
-  const iamUser = scope.node.tryGetContext('iam_user');
+  const iamUser = scope.node.tryGetContext('iam-user');
 
   const dbResourceId = new AwsCustomResource(scope, `${name}ResourceId`, {
     logRetention: RetentionDays.ONE_DAY,
@@ -58,9 +58,9 @@ export const getDBUserArn = (scope: Stack, cluster: DatabaseCluster, name: strin
 
   const resourceId = dbResourceId.getResponseField('DBClusters.0.DbClusterResourceId');
   return scope.formatArn({
+    arnFormat: ArnFormat.COLON_RESOURCE_NAME,
     resource: 'dbuser',
     resourceName: `${resourceId}/${iamUser}`,
-    sep: ':',
     service: 'rds-db',
   });
 };

@@ -1,4 +1,4 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { CfnOutput, Construct, Stack, StackProps } from '@aws-cdk/core';
 import { createApiGateway } from './apigateway';
 import { createCustomResources } from './custom-resources';
 import { createLambdaFunctions } from './lambda';
@@ -17,6 +17,8 @@ export class RDSIAMAuthStack extends Stack {
 
     createCustomResources(this, fns, clusters);
 
-    createApiGateway(this, fns);
+    const api = createApiGateway(this, fns);
+
+    new CfnOutput(this, 'ApiEndpoint', { value: api.apiEndpoint });
   }
 }

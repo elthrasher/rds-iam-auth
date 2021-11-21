@@ -1,0 +1,1931 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rest api rest api 1`] = `
+Object {
+  "Outputs": Object {
+    "ApiEndpoint": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "IamAuthApi41DCA1AF",
+          "ApiEndpoint",
+        ],
+      },
+    },
+  },
+  "Parameters": Any<Object>,
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287LogRetentionCE72797A": Object {
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 1,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "IamAuthApi41DCA1AF": Object {
+      "Properties": Object {
+        "Name": "IamAuthApi",
+        "ProtocolType": "HTTP",
+      },
+      "Type": "AWS::ApiGatewayV2::Api",
+    },
+    "IamAuthApiDefaultStageCF3A80CA": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "IamAuthApi41DCA1AF",
+        },
+        "AutoDeploy": true,
+        "StageName": "$default",
+      },
+      "Type": "AWS::ApiGatewayV2::Stage",
+    },
+    "IamAuthApiGETmysqlCE9FF4FD": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "IamAuthApi41DCA1AF",
+        },
+        "AuthorizationType": "NONE",
+        "RouteKey": "GET /mysql",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "IamAuthApiGETmysqlHttpIntegration1b8863df5c8e8d064332de0db102ee79C10A97FD",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "IamAuthApiGETmysqlHttpIntegration1b8863df5c8e8d064332de0db102ee79C10A97FD": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "IamAuthApi41DCA1AF",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "MysqlQueryD0901EE8",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "IamAuthApiGETmysqlTestStackIamAuthApiGETmysqlCC248394PermissionF66F7886": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MysqlQueryD0901EE8",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456789:",
+              Object {
+                "Ref": "IamAuthApi41DCA1AF",
+              },
+              "/*/*/mysql",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "IamAuthApiGETpg41E68408": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "IamAuthApi41DCA1AF",
+        },
+        "AuthorizationType": "NONE",
+        "RouteKey": "GET /pg",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "IamAuthApiGETpgHttpIntegration0c2515d5edf89b988be57ae51a61947b20D0A346",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "IamAuthApiGETpgHttpIntegration0c2515d5edf89b988be57ae51a61947b20D0A346": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "IamAuthApi41DCA1AF",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "PgQuery716D4D6B",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "IamAuthApiGETpgTestStackIamAuthApiGETpg21CB8058Permission94983D0D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PgQuery716D4D6B",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456789:",
+              Object {
+                "Ref": "IamAuthApi41DCA1AF",
+              },
+              "/*/*/pg",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": Object {
+      "DependsOn": Array [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "Roles": Array [
+          Object {
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "MySQLDdlProviderframeworkonEvent4E4C52D2": Object {
+      "DependsOn": Array [
+        "MySQLDdlProviderframeworkonEventServiceRoleDefaultPolicy81CA70D3",
+        "MySQLDdlProviderframeworkonEventServiceRole1D7F5479",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Description": "AWS CDK resource provider framework - onEvent (TestStack/MySQLDdlProvider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "MysqlDdl3C4FCA69",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "MySQLDdlProviderframeworkonEventServiceRole1D7F5479",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "MySQLDdlProviderframeworkonEventServiceRole1D7F5479": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MySQLDdlProviderframeworkonEventServiceRoleDefaultPolicy81CA70D3": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "MysqlDdl3C4FCA69",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MySQLDdlProviderframeworkonEventServiceRoleDefaultPolicy81CA70D3",
+        "Roles": Array [
+          Object {
+            "Ref": "MySQLDdlProviderframeworkonEventServiceRole1D7F5479",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "MySQLDdlResource": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "MysqlDbInstance1179D2ABE",
+        "MysqlDbInstance2E52C2B92",
+        "MysqlDbED47B309",
+        "MysqlDbSecretAttachment8FF281A9",
+        "TestStackMysqlDbSecret240CD3663fdaad7efa858a3daf9490cf0a702aeb",
+        "MysqlDbSecurityGroupfromTestStackMysqlDbSecurityGroup037EF433NaN3BAF46D3",
+        "MysqlDbSecurityGroupEE77DBC6",
+        "MysqlDbSubnets7156C415",
+      ],
+      "Properties": Object {
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "MySQLDdlProviderframeworkonEvent4E4C52D2",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "MysqlDbED47B309": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "CopyTagsToSnapshot": true,
+        "DBClusterParameterGroupName": "default.aurora-mysql5.7",
+        "DBSubnetGroupName": Object {
+          "Ref": "MysqlDbSubnets7156C415",
+        },
+        "EnableIAMDatabaseAuthentication": true,
+        "Engine": "aurora-mysql",
+        "EngineVersion": "5.7.mysql_aurora.2.10.0",
+        "MasterUserPassword": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{{resolve:secretsmanager:",
+              Object {
+                "Ref": "TestStackMysqlDbSecret240CD3663fdaad7efa858a3daf9490cf0a702aeb",
+              },
+              ":SecretString:password::}}",
+            ],
+          ],
+        },
+        "MasterUsername": "main",
+        "VpcSecurityGroupIds": Array [
+          Object {
+            "Fn::GetAtt": Array [
+              "MysqlDbSecurityGroupEE77DBC6",
+              "GroupId",
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::RDS::DBCluster",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "MysqlDbInstance1179D2ABE": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "DBClusterIdentifier": Object {
+          "Ref": "MysqlDbED47B309",
+        },
+        "DBInstanceClass": "db.t4g.medium",
+        "DBSubnetGroupName": Object {
+          "Ref": "MysqlDbSubnets7156C415",
+        },
+        "Engine": "aurora-mysql",
+        "EngineVersion": "5.7.mysql_aurora.2.10.0",
+        "PubliclyAccessible": false,
+      },
+      "Type": "AWS::RDS::DBInstance",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "MysqlDbInstance2E52C2B92": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "DBClusterIdentifier": Object {
+          "Ref": "MysqlDbED47B309",
+        },
+        "DBInstanceClass": "db.t4g.medium",
+        "DBSubnetGroupName": Object {
+          "Ref": "MysqlDbSubnets7156C415",
+        },
+        "Engine": "aurora-mysql",
+        "EngineVersion": "5.7.mysql_aurora.2.10.0",
+        "PubliclyAccessible": false,
+      },
+      "Type": "AWS::RDS::DBInstance",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "MysqlDbSecretAttachment8FF281A9": Object {
+      "Properties": Object {
+        "SecretId": Object {
+          "Ref": "TestStackMysqlDbSecret240CD3663fdaad7efa858a3daf9490cf0a702aeb",
+        },
+        "TargetId": Object {
+          "Ref": "MysqlDbED47B309",
+        },
+        "TargetType": "AWS::RDS::DBCluster",
+      },
+      "Type": "AWS::SecretsManager::SecretTargetAttachment",
+    },
+    "MysqlDbSecurityGroupEE77DBC6": Object {
+      "Properties": Object {
+        "GroupDescription": "RDS security group",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "MysqlDbSecurityGroupfromTestStackMysqlDbSecurityGroup037EF433NaN3BAF46D3": Object {
+      "Properties": Object {
+        "Description": "from TestStackMysqlDbSecurityGroup037EF433:NaN",
+        "FromPort": null,
+        "GroupId": Object {
+          "Fn::GetAtt": Array [
+            "MysqlDbSecurityGroupEE77DBC6",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": Object {
+          "Fn::GetAtt": Array [
+            "MysqlDbSecurityGroupEE77DBC6",
+            "GroupId",
+          ],
+        },
+        "ToPort": null,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "MysqlDbSubnets7156C415": Object {
+      "Properties": Object {
+        "DBSubnetGroupDescription": "Subnets for MysqlDb database",
+        "SubnetIds": Array [
+          Object {
+            "Ref": "rdsiamvpcrdsSubnet1SubnetBCF37F45",
+          },
+          Object {
+            "Ref": "rdsiamvpcrdsSubnet2SubnetECBE55F2",
+          },
+        ],
+      },
+      "Type": "AWS::RDS::DBSubnetGroup",
+    },
+    "MysqlDdl3C4FCA69": Object {
+      "DependsOn": Array [
+        "MysqlDdlServiceRoleDefaultPolicy4513CD7D",
+        "MysqlDdlServiceRole73B83FE3",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "SECRET_ARN": Object {
+              "Ref": "MysqlDbSecretAttachment8FF281A9",
+            },
+          },
+        },
+        "FunctionName": "mysqlDdl",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "MysqlDdlServiceRole73B83FE3",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 60,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "MysqlDbSecurityGroupEE77DBC6",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet1Subnet8C7F501B",
+            },
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet2SubnetACC831F6",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "MysqlDdlServiceRole73B83FE3": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MysqlDdlServiceRoleDefaultPolicy4513CD7D": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "MysqlDbSecretAttachment8FF281A9",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MysqlDdlServiceRoleDefaultPolicy4513CD7D",
+        "Roles": Array [
+          Object {
+            "Ref": "MysqlDdlServiceRole73B83FE3",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "MysqlQueryD0901EE8": Object {
+      "DependsOn": Array [
+        "MysqlQueryServiceRoleDefaultPolicyF08FFBCE",
+        "MysqlQueryServiceRole984CE569",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DB_HOSTNAME": Object {
+              "Fn::GetAtt": Array [
+                "MysqlDbED47B309",
+                "ReadEndpoint.Address",
+              ],
+            },
+          },
+        },
+        "FunctionName": "mysqlQuery",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "MysqlQueryServiceRole984CE569",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 60,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "MysqlDbSecurityGroupEE77DBC6",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet1Subnet8C7F501B",
+            },
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet2SubnetACC831F6",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "MysqlQueryServiceRole984CE569": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MysqlQueryServiceRoleDefaultPolicyF08FFBCE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "rds-db:connect",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":rds-db:us-east-1:123456789:dbuser:",
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "mysqlResourceId7AF2BD44",
+                        "DBClusters.0.DbClusterResourceId",
+                      ],
+                    },
+                    "/undefined",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MysqlQueryServiceRoleDefaultPolicyF08FFBCE",
+        "Roles": Array [
+          Object {
+            "Ref": "MysqlQueryServiceRole984CE569",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PgDbE5B338ED": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "CopyTagsToSnapshot": true,
+        "DBClusterParameterGroupName": "default.aurora-postgresql13",
+        "DBSubnetGroupName": Object {
+          "Ref": "PgDbSubnetsF1D85532",
+        },
+        "EnableIAMDatabaseAuthentication": true,
+        "Engine": "aurora-postgresql",
+        "EngineVersion": "13.4",
+        "MasterUserPassword": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{{resolve:secretsmanager:",
+              Object {
+                "Ref": "TestStackPgDbSecret0788E7C83fdaad7efa858a3daf9490cf0a702aeb",
+              },
+              ":SecretString:password::}}",
+            ],
+          ],
+        },
+        "MasterUsername": "main",
+        "Port": 5432,
+        "VpcSecurityGroupIds": Array [
+          Object {
+            "Fn::GetAtt": Array [
+              "PgDbSecurityGroup9AE86CEE",
+              "GroupId",
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::RDS::DBCluster",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PgDbInstance1CED64E80": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "DBClusterIdentifier": Object {
+          "Ref": "PgDbE5B338ED",
+        },
+        "DBInstanceClass": "db.t4g.medium",
+        "DBSubnetGroupName": Object {
+          "Ref": "PgDbSubnetsF1D85532",
+        },
+        "Engine": "aurora-postgresql",
+        "EngineVersion": "13.4",
+        "PubliclyAccessible": false,
+      },
+      "Type": "AWS::RDS::DBInstance",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PgDbInstance24571D7CD": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "DBClusterIdentifier": Object {
+          "Ref": "PgDbE5B338ED",
+        },
+        "DBInstanceClass": "db.t4g.medium",
+        "DBSubnetGroupName": Object {
+          "Ref": "PgDbSubnetsF1D85532",
+        },
+        "Engine": "aurora-postgresql",
+        "EngineVersion": "13.4",
+        "PubliclyAccessible": false,
+      },
+      "Type": "AWS::RDS::DBInstance",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PgDbSecretAttachmentB9FC5735": Object {
+      "Properties": Object {
+        "SecretId": Object {
+          "Ref": "TestStackPgDbSecret0788E7C83fdaad7efa858a3daf9490cf0a702aeb",
+        },
+        "TargetId": Object {
+          "Ref": "PgDbE5B338ED",
+        },
+        "TargetType": "AWS::RDS::DBCluster",
+      },
+      "Type": "AWS::SecretsManager::SecretTargetAttachment",
+    },
+    "PgDbSecurityGroup9AE86CEE": Object {
+      "Properties": Object {
+        "GroupDescription": "RDS security group",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "PgDbSecurityGroupfromTestStackPgDbSecurityGroupD135BE5CNaN39AFCE91": Object {
+      "Properties": Object {
+        "Description": "from TestStackPgDbSecurityGroupD135BE5C:NaN",
+        "FromPort": null,
+        "GroupId": Object {
+          "Fn::GetAtt": Array [
+            "PgDbSecurityGroup9AE86CEE",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": Object {
+          "Fn::GetAtt": Array [
+            "PgDbSecurityGroup9AE86CEE",
+            "GroupId",
+          ],
+        },
+        "ToPort": null,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "PgDbSubnetsF1D85532": Object {
+      "Properties": Object {
+        "DBSubnetGroupDescription": "Subnets for PgDb database",
+        "SubnetIds": Array [
+          Object {
+            "Ref": "rdsiamvpcrdsSubnet1SubnetBCF37F45",
+          },
+          Object {
+            "Ref": "rdsiamvpcrdsSubnet2SubnetECBE55F2",
+          },
+        ],
+      },
+      "Type": "AWS::RDS::DBSubnetGroup",
+    },
+    "PgDdlFF5F746B": Object {
+      "DependsOn": Array [
+        "PgDdlServiceRoleDefaultPolicy5730961E",
+        "PgDdlServiceRoleF3107E18",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "SECRET_ARN": Object {
+              "Ref": "PgDbSecretAttachmentB9FC5735",
+            },
+          },
+        },
+        "FunctionName": "pgDdl",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PgDdlServiceRoleF3107E18",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 60,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "PgDbSecurityGroup9AE86CEE",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet1Subnet8C7F501B",
+            },
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet2SubnetACC831F6",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PgDdlProviderframeworkonEventF7AD1F3D": Object {
+      "DependsOn": Array [
+        "PgDdlProviderframeworkonEventServiceRoleDefaultPolicyF6B97F1F",
+        "PgDdlProviderframeworkonEventServiceRole6232FE3E",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Description": "AWS CDK resource provider framework - onEvent (TestStack/PgDdlProvider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "PgDdlFF5F746B",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PgDdlProviderframeworkonEventServiceRole6232FE3E",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PgDdlProviderframeworkonEventServiceRole6232FE3E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PgDdlProviderframeworkonEventServiceRoleDefaultPolicyF6B97F1F": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "PgDdlFF5F746B",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PgDdlProviderframeworkonEventServiceRoleDefaultPolicyF6B97F1F",
+        "Roles": Array [
+          Object {
+            "Ref": "PgDdlProviderframeworkonEventServiceRole6232FE3E",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PgDdlResource": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "PgDbInstance1CED64E80",
+        "PgDbInstance24571D7CD",
+        "PgDbE5B338ED",
+        "PgDbSecretAttachmentB9FC5735",
+        "TestStackPgDbSecret0788E7C83fdaad7efa858a3daf9490cf0a702aeb",
+        "PgDbSecurityGroupfromTestStackPgDbSecurityGroupD135BE5CNaN39AFCE91",
+        "PgDbSecurityGroup9AE86CEE",
+        "PgDbSubnetsF1D85532",
+      ],
+      "Properties": Object {
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "PgDdlProviderframeworkonEventF7AD1F3D",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PgDdlServiceRoleDefaultPolicy5730961E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "PgDbSecretAttachmentB9FC5735",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PgDdlServiceRoleDefaultPolicy5730961E",
+        "Roles": Array [
+          Object {
+            "Ref": "PgDdlServiceRoleF3107E18",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PgDdlServiceRoleF3107E18": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PgQuery716D4D6B": Object {
+      "DependsOn": Array [
+        "PgQueryServiceRoleDefaultPolicy6EB35131",
+        "PgQueryServiceRoleCFC3F3D3",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DB_HOSTNAME": Object {
+              "Fn::GetAtt": Array [
+                "PgDbE5B338ED",
+                "ReadEndpoint.Address",
+              ],
+            },
+          },
+        },
+        "FunctionName": "pgQuery",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PgQueryServiceRoleCFC3F3D3",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 60,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "PgDbSecurityGroup9AE86CEE",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet1Subnet8C7F501B",
+            },
+            Object {
+              "Ref": "rdsiamvpccomputeSubnet2SubnetACC831F6",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PgQueryServiceRoleCFC3F3D3": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PgQueryServiceRoleDefaultPolicy6EB35131": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "rds-db:connect",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":rds-db:us-east-1:123456789:dbuser:",
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "pgResourceId3B16A1D0",
+                        "DBClusters.0.DbClusterResourceId",
+                      ],
+                    },
+                    "/undefined",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PgQueryServiceRoleDefaultPolicy6EB35131",
+        "Roles": Array [
+          Object {
+            "Ref": "PgQueryServiceRoleCFC3F3D3",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TestStackMysqlDbSecret240CD3663fdaad7efa858a3daf9490cf0a702aeb": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Generated by the CDK for stack: ",
+              Object {
+                "Ref": "AWS::StackName",
+              },
+            ],
+          ],
+        },
+        "GenerateSecretString": Object {
+          "ExcludeCharacters": " %+~\`#$&*()|[]{}:;<>?!'/@\\"\\\\",
+          "GenerateStringKey": "password",
+          "PasswordLength": 30,
+          "SecretStringTemplate": "{\\"username\\":\\"main\\"}",
+        },
+      },
+      "Type": "AWS::SecretsManager::Secret",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "TestStackPgDbSecret0788E7C83fdaad7efa858a3daf9490cf0a702aeb": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Generated by the CDK for stack: ",
+              Object {
+                "Ref": "AWS::StackName",
+              },
+            ],
+          ],
+        },
+        "GenerateSecretString": Object {
+          "ExcludeCharacters": " %+~\`#$&*()|[]{}:;<>?!'/@\\"\\\\",
+          "GenerateStringKey": "password",
+          "PasswordLength": 30,
+          "SecretStringTemplate": "{\\"username\\":\\"main\\"}",
+        },
+      },
+      "Type": "AWS::SecretsManager::Secret",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "mysqlDdlLogGroup3C6D2A94": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": "/aws/lambda/mysqlDdl",
+        "RetentionInDays": 7,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "mysqlQueryLogGroupF34085C3": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": "/aws/lambda/mysqlQuery",
+        "RetentionInDays": 7,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "mysqlResourceId7AF2BD44": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "mysqlResourceIdCustomResourcePolicy4A4924FD",
+      ],
+      "Properties": Object {
+        "Create": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"action\\":\\"describeDBClusters\\",\\"parameters\\":{\\"DBClusterIdentifier\\":\\"",
+              Object {
+                "Ref": "MysqlDbED47B309",
+              },
+              "\\"},\\"physicalResourceId\\":{\\"id\\":\\"Data.DBClusters.0.DBClusterResourceId\\"},\\"service\\":\\"RDS\\"}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "mysqlResourceIdCustomResourcePolicy4A4924FD": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "rds:DescribeDBClusters",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "mysqlResourceIdCustomResourcePolicy4A4924FD",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "pgDdlLogGroup45D60BE5": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": "/aws/lambda/pgDdl",
+        "RetentionInDays": 7,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "pgQueryLogGroupEBF17C1E": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": "/aws/lambda/pgQuery",
+        "RetentionInDays": 7,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "pgResourceId3B16A1D0": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "pgResourceIdCustomResourcePolicyC71E3057",
+      ],
+      "Properties": Object {
+        "Create": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"action\\":\\"describeDBClusters\\",\\"parameters\\":{\\"DBClusterIdentifier\\":\\"",
+              Object {
+                "Ref": "PgDbE5B338ED",
+              },
+              "\\"},\\"physicalResourceId\\":{\\"id\\":\\"Data.DBClusters.0.DBClusterResourceId\\"},\\"service\\":\\"RDS\\"}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "pgResourceIdCustomResourcePolicyC71E3057": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "rds:DescribeDBClusters",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "pgResourceIdCustomResourcePolicyC71E3057",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "rdsiamvpcB66D3174": Object {
+      "Properties": Object {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "rdsiamvpcIGW72528380": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "rdsiamvpcVPCGW7FA5231B": Object {
+      "Properties": Object {
+        "InternetGatewayId": Object {
+          "Ref": "rdsiamvpcIGW72528380",
+        },
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "rdsiamvpccomputeSubnet1DefaultRouteE1EC2DB3": Object {
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": Object {
+          "Ref": "rdsiamvpcingressSubnet1NATGateway63420E96",
+        },
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpccomputeSubnet1RouteTable067CC893",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "rdsiamvpccomputeSubnet1RouteTable067CC893": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/computeSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "rdsiamvpccomputeSubnet1RouteTableAssociationBA8EF2B9": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpccomputeSubnet1RouteTable067CC893",
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpccomputeSubnet1Subnet8C7F501B",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "rdsiamvpccomputeSubnet1Subnet8C7F501B": Object {
+      "Properties": Object {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.2.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "compute",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/computeSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "rdsiamvpccomputeSubnet2DefaultRouteE34FEB72": Object {
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": Object {
+          "Ref": "rdsiamvpcingressSubnet2NATGatewayE5C28C41",
+        },
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpccomputeSubnet2RouteTable2871C8CD",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "rdsiamvpccomputeSubnet2RouteTable2871C8CD": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/computeSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "rdsiamvpccomputeSubnet2RouteTableAssociationDD9C100F": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpccomputeSubnet2RouteTable2871C8CD",
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpccomputeSubnet2SubnetACC831F6",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "rdsiamvpccomputeSubnet2SubnetACC831F6": Object {
+      "Properties": Object {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.3.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "compute",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/computeSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "rdsiamvpcingressSubnet1DefaultRouteB746877C": Object {
+      "DependsOn": Array [
+        "rdsiamvpcVPCGW7FA5231B",
+      ],
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": Object {
+          "Ref": "rdsiamvpcIGW72528380",
+        },
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpcingressSubnet1RouteTable45A3060A",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "rdsiamvpcingressSubnet1EIPCA18BDE4": Object {
+      "Properties": Object {
+        "Domain": "vpc",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "rdsiamvpcingressSubnet1NATGateway63420E96": Object {
+      "Properties": Object {
+        "AllocationId": Object {
+          "Fn::GetAtt": Array [
+            "rdsiamvpcingressSubnet1EIPCA18BDE4",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpcingressSubnet1Subnet9847350C",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "rdsiamvpcingressSubnet1RouteTable45A3060A": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "rdsiamvpcingressSubnet1RouteTableAssociation72E37EF1": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpcingressSubnet1RouteTable45A3060A",
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpcingressSubnet1Subnet9847350C",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "rdsiamvpcingressSubnet1Subnet9847350C": Object {
+      "Properties": Object {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.0.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "ingress",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "rdsiamvpcingressSubnet2DefaultRoute0DC91E97": Object {
+      "DependsOn": Array [
+        "rdsiamvpcVPCGW7FA5231B",
+      ],
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": Object {
+          "Ref": "rdsiamvpcIGW72528380",
+        },
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpcingressSubnet2RouteTable9B454AEF",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "rdsiamvpcingressSubnet2EIPE1338521": Object {
+      "Properties": Object {
+        "Domain": "vpc",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "rdsiamvpcingressSubnet2NATGatewayE5C28C41": Object {
+      "Properties": Object {
+        "AllocationId": Object {
+          "Fn::GetAtt": Array [
+            "rdsiamvpcingressSubnet2EIPE1338521",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpcingressSubnet2Subnet06A4AD69",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "rdsiamvpcingressSubnet2RouteTable9B454AEF": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "rdsiamvpcingressSubnet2RouteTableAssociationEC37F2EA": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpcingressSubnet2RouteTable9B454AEF",
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpcingressSubnet2Subnet06A4AD69",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "rdsiamvpcingressSubnet2Subnet06A4AD69": Object {
+      "Properties": Object {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.1.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "ingress",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/ingressSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "rdsiamvpcrdsSubnet1RouteTable4AF360D3": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/rdsSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "rdsiamvpcrdsSubnet1RouteTableAssociation58A0D645": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpcrdsSubnet1RouteTable4AF360D3",
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpcrdsSubnet1SubnetBCF37F45",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "rdsiamvpcrdsSubnet1SubnetBCF37F45": Object {
+      "Properties": Object {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.4.0/28",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "rds",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/rdsSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "rdsiamvpcrdsSubnet2RouteTable3648A949": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/rdsSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "rdsiamvpcrdsSubnet2RouteTableAssociation61D1219E": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "rdsiamvpcrdsSubnet2RouteTable3648A949",
+        },
+        "SubnetId": Object {
+          "Ref": "rdsiamvpcrdsSubnet2SubnetECBE55F2",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "rdsiamvpcrdsSubnet2SubnetECBE55F2": Object {
+      "Properties": Object {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.4.16/28",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "rds",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "TestStack/rds-iam-vpc/rdsSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+  },
+}
+`;

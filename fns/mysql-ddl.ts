@@ -22,7 +22,7 @@ const getConnection = async (): Promise<Connection> => {
     }
     const { password, dbname: database, host, username: user } = JSON.parse(SecretString);
 
-    return createConnection({ database, host, multipleStatements: true, password, user });
+    return createConnection({ database, host, multipleStatements: true, password, port: 3306, user });
   } catch (e) {
     console.error('An error occurred while creating a db connection: ', (e as Error).message);
     throw e;
@@ -50,7 +50,9 @@ export const handler = async (
 
         for (const stmt of statements) {
           try {
+            console.log('executing', stmt);
             await connection.query(stmt);
+            console.log('ran', stmt);
           } catch (e) {
             console.error('failed sql: ', stmt);
             console.error(e);

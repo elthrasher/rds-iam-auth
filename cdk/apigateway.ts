@@ -3,7 +3,7 @@ import { LambdaProxyIntegration } from '@aws-cdk/aws-apigatewayv2-integrations';
 import { Stack } from '@aws-cdk/core';
 import { LambdaFunctions } from './lambda';
 
-export const createApiGateway = (scope: Stack, fns: LambdaFunctions): void => {
+export const createApiGateway = (scope: Stack, fns: LambdaFunctions): HttpApi => {
   const httpApi = new HttpApi(scope, 'IamAuthApi');
 
   httpApi.addRoutes({
@@ -17,4 +17,6 @@ export const createApiGateway = (scope: Stack, fns: LambdaFunctions): void => {
     methods: [HttpMethod.GET],
     path: '/pg',
   });
+
+  return httpApi;
 };
