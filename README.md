@@ -7,5 +7,6 @@ HttpApi is provided to execute query Lambda functions.
 
 * `npm i`
 * `npm run deploy`
-* <have fun doing stuff>
+* Grab generated url from the console and visit `/mysql` and `/pg` endpoints.
+* have fun doing stuff
 * `npm run destroy`
