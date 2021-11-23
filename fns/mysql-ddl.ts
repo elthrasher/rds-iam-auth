@@ -50,12 +50,11 @@ export const handler = async (
 
         for (const stmt of statements) {
           try {
-            console.log('executing', stmt);
             await connection.query(stmt);
-            console.log('ran', stmt);
           } catch (e) {
             console.error('failed sql: ', stmt);
             console.error(e);
+            throw new Error(e as string);
           }
         }
 

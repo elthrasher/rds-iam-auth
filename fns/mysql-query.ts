@@ -9,7 +9,7 @@ export const handler = async (): Promise<
   RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[] | ResultSetHeader
 > => {
   if (!process.env.DB_HOSTNAME) {
-    throw new Error('Missing env vars!');
+    throw new Error('Missing DB_HOSTNAME!');
   }
   const iamUser = process.env.IAM_USER;
   const signer = new RDS.Signer();

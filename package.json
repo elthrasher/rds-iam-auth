@@ -33,7 +33,7 @@
     "@aws-cdk/aws-rds": "1.133.0",
     "@aws-cdk/core": "1.133.0",
     "@aws-cdk/custom-resources": "1.133.0",
-    "aws-sdk": "^2.1033.0",
+    "aws-sdk": "^2.1034.0",
     "mysql2": "^2.3.3",
     "pg": "^8.7.1"
   },

@@ -20,11 +20,11 @@ const getConnection = async (): Promise<Client> => {
     throw new Error('SECRET_ARN variable missing!');
   }
   try {
-    const { SecretString } = await sm.getSecretValue({ SecretId: process.env.SECRET_ARN }).promise();
-    if (!SecretString) {
+    const blah = await sm.getSecretValue({ SecretId: process.env.SECRET_ARN }).promise();
+    if (!blah.SecretString) {
       throw new Error('Unable to fetch secret!');
     }
-    const { password, dbname: database, host, username: user } = JSON.parse(SecretString);
+    const { password, dbname: database, host, username: user } = JSON.parse(blah.SecretString);
 
     client = new Client({
       database,
@@ -62,12 +62,10 @@ export const handler = async (
 
         for (const stmt of statements) {
           try {
-            console.log('executing', stmt);
             await connection.query(stmt);
-            console.log('ran', stmt);
           } catch (e) {
             console.error('failed sql: ', stmt);
-            console.error(e);
+            throw new Error(e as string);
           }
         }
 
