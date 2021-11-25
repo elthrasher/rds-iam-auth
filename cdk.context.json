@@ -1,15 +1,6 @@
 {
-  "availability-zones:account=336848621206:region=us-east-1": [
-    "us-east-1a",
-    "us-east-1b",
-    "us-east-1c",
-    "us-east-1d",
-    "us-east-1e",
-    "us-east-1f"
-  ],
   "db-name": "iamdb",
   "mysql-port": "3306",
   "pg-port": "5432",
-  "iam-user": "iam_user",
-  "ami:account=336848621206:filters.image-type.0=machine:filters.name.0=fck-nat-*-arm64-ebs:filters.state.0=available:region=us-east-1": "ami-09a54bc14d0abd915"
+  "iam-user": "iam_user"
 }
