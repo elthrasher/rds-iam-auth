@@ -4,7 +4,7 @@ An example of using IAM to authenticate a Lambda function to AWS RDS using AWS C
 
 ## :warning: This Example is not Serverless! :warning:
 
-This stack includes two medium RDS clusters and the [dreaded Managed NAT Gateway](https://www.lastweekinaws.com/blog/the-aws-managed-nat-gateway-is-unpleasant-and-not-recommended/). It will cost you money if you deploy it and leave it running!
+This stack includes two medium RDS clusters ~~and the [dreaded Managed NAT Gateway](https://www.lastweekinaws.com/blog/the-aws-managed-nat-gateway-is-unpleasant-and-not-recommended/)~~. Managed NAT Gateway is replaced with [fck-nat](https://github.com/AndrewGuenther/fck-nat/)! The databases will still cost some money.
 
 ## Stack Info
 

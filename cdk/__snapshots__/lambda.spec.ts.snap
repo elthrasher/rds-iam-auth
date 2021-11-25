@@ -1118,6 +1118,58 @@ Object {
       },
       "Type": "AWS::EC2::InternetGateway",
     },
+    "rdsiamvpcNatRoleD750E293": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ec2.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "ApiTestStack/rds-iam-vpc",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "rdsiamvpcNatSecurityGroupAA0279BB": Object {
+      "Properties": Object {
+        "GroupDescription": "Security Group for NAT instances",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL TRAFFIC",
+            "IpProtocol": "-1",
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "ApiTestStack/rds-iam-vpc",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "rdsiamvpcB66D3174",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
     "rdsiamvpcVPCGW7FA5231B": Object {
       "Properties": Object {
         "InternetGatewayId": Object {
@@ -1132,8 +1184,8 @@ Object {
     "rdsiamvpccomputeSubnet1DefaultRouteE1EC2DB3": Object {
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": Object {
-          "Ref": "rdsiamvpcingressSubnet1NATGateway63420E96",
+        "InstanceId": Object {
+          "Ref": "rdsiamvpcingressSubnet1NatInstance9EEA1595",
         },
         "RouteTableId": Object {
           "Ref": "rdsiamvpccomputeSubnet1RouteTable067CC893",
@@ -1194,8 +1246,8 @@ Object {
     "rdsiamvpccomputeSubnet2DefaultRouteE34FEB72": Object {
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": Object {
-          "Ref": "rdsiamvpcingressSubnet2NATGatewayE5C28C41",
+        "InstanceId": Object {
+          "Ref": "rdsiamvpcingressSubnet2NatInstance74351BFF",
         },
         "RouteTableId": Object {
           "Ref": "rdsiamvpccomputeSubnet2RouteTable2871C8CD",
@@ -1268,37 +1320,50 @@ Object {
       },
       "Type": "AWS::EC2::Route",
     },
-    "rdsiamvpcingressSubnet1EIPCA18BDE4": Object {
+    "rdsiamvpcingressSubnet1NatInstance9EEA1595": Object {
+      "DependsOn": Array [
+        "rdsiamvpcNatRoleD750E293",
+      ],
       "Properties": Object {
-        "Domain": "vpc",
-        "Tags": Array [
+        "AvailabilityZone": "dummy1a",
+        "IamInstanceProfile": Object {
+          "Ref": "rdsiamvpcingressSubnet1NatInstanceInstanceProfile21295B84",
+        },
+        "ImageId": "ami-1234",
+        "InstanceType": "t4g.micro",
+        "SecurityGroupIds": Array [
           Object {
-            "Key": "Name",
-            "Value": "ApiTestStack/rds-iam-vpc/ingressSubnet1",
+            "Fn::GetAtt": Array [
+              "rdsiamvpcNatSecurityGroupAA0279BB",
+              "GroupId",
+            ],
           },
         ],
-      },
-      "Type": "AWS::EC2::EIP",
-    },
-    "rdsiamvpcingressSubnet1NATGateway63420E96": Object {
-      "Properties": Object {
-        "AllocationId": Object {
-          "Fn::GetAtt": Array [
-            "rdsiamvpcingressSubnet1EIPCA18BDE4",
-            "AllocationId",
-          ],
-        },
+        "SourceDestCheck": false,
         "SubnetId": Object {
           "Ref": "rdsiamvpcingressSubnet1Subnet9847350C",
         },
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "ApiTestStack/rds-iam-vpc/ingressSubnet1",
+            "Value": "ApiTestStack/rds-iam-vpc/ingressSubnet1/NatInstance",
+          },
+        ],
+        "UserData": Object {
+          "Fn::Base64": "#!/bin/bash",
+        },
+      },
+      "Type": "AWS::EC2::Instance",
+    },
+    "rdsiamvpcingressSubnet1NatInstanceInstanceProfile21295B84": Object {
+      "Properties": Object {
+        "Roles": Array [
+          Object {
+            "Ref": "rdsiamvpcNatRoleD750E293",
           },
         ],
       },
-      "Type": "AWS::EC2::NatGateway",
+      "Type": "AWS::IAM::InstanceProfile",
     },
     "rdsiamvpcingressSubnet1RouteTable45A3060A": Object {
       "Properties": Object {
@@ -1365,37 +1430,50 @@ Object {
       },
       "Type": "AWS::EC2::Route",
     },
-    "rdsiamvpcingressSubnet2EIPE1338521": Object {
+    "rdsiamvpcingressSubnet2NatInstance74351BFF": Object {
+      "DependsOn": Array [
+        "rdsiamvpcNatRoleD750E293",
+      ],
       "Properties": Object {
-        "Domain": "vpc",
-        "Tags": Array [
+        "AvailabilityZone": "dummy1b",
+        "IamInstanceProfile": Object {
+          "Ref": "rdsiamvpcingressSubnet2NatInstanceInstanceProfile51965138",
+        },
+        "ImageId": "ami-1234",
+        "InstanceType": "t4g.micro",
+        "SecurityGroupIds": Array [
           Object {
-            "Key": "Name",
-            "Value": "ApiTestStack/rds-iam-vpc/ingressSubnet2",
+            "Fn::GetAtt": Array [
+              "rdsiamvpcNatSecurityGroupAA0279BB",
+              "GroupId",
+            ],
           },
         ],
-      },
-      "Type": "AWS::EC2::EIP",
-    },
-    "rdsiamvpcingressSubnet2NATGatewayE5C28C41": Object {
-      "Properties": Object {
-        "AllocationId": Object {
-          "Fn::GetAtt": Array [
-            "rdsiamvpcingressSubnet2EIPE1338521",
-            "AllocationId",
-          ],
-        },
+        "SourceDestCheck": false,
         "SubnetId": Object {
           "Ref": "rdsiamvpcingressSubnet2Subnet06A4AD69",
         },
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "ApiTestStack/rds-iam-vpc/ingressSubnet2",
+            "Value": "ApiTestStack/rds-iam-vpc/ingressSubnet2/NatInstance",
+          },
+        ],
+        "UserData": Object {
+          "Fn::Base64": "#!/bin/bash",
+        },
+      },
+      "Type": "AWS::EC2::Instance",
+    },
+    "rdsiamvpcingressSubnet2NatInstanceInstanceProfile51965138": Object {
+      "Properties": Object {
+        "Roles": Array [
+          Object {
+            "Ref": "rdsiamvpcNatRoleD750E293",
           },
         ],
       },
-      "Type": "AWS::EC2::NatGateway",
+      "Type": "AWS::IAM::InstanceProfile",
     },
     "rdsiamvpcingressSubnet2RouteTable9B454AEF": Object {
       "Properties": Object {

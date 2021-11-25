@@ -10,5 +10,6 @@
   "db-name": "iamdb",
   "mysql-port": "3306",
   "pg-port": "5432",
-  "iam-user": "iam_user"
+  "iam-user": "iam_user",
+  "ami:account=336848621206:filters.image-type.0=machine:filters.name.0=fck-nat-*-arm64-ebs:filters.state.0=available:region=us-east-1": "ami-09a54bc14d0abd915"
 }

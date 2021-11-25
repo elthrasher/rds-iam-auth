@@ -1,9 +1,25 @@
-import { IVpc, SubnetType, Vpc } from '@aws-cdk/aws-ec2';
+import {
+  InstanceClass,
+  InstanceSize,
+  InstanceType,
+  IVpc,
+  LookupMachineImage,
+  NatInstanceProvider,
+  SubnetType,
+  Vpc,
+} from '@aws-cdk/aws-ec2';
 import { Stack } from '@aws-cdk/core';
 
 export const createVpc = (scope: Stack): IVpc =>
   new Vpc(scope, 'rds-iam-vpc', {
     maxAzs: 2,
+    // Thanks https://github.com/AndrewGuenther/fck-nat/
+    natGatewayProvider: new NatInstanceProvider({
+      instanceType: InstanceType.of(InstanceClass.T4G, InstanceSize.MICRO),
+      machineImage: new LookupMachineImage({
+        name: 'fck-nat-*-arm64-ebs',
+      }),
+    }),
     subnetConfiguration: [
       {
         cidrMask: 24,
