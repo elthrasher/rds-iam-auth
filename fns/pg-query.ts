@@ -1,7 +1,9 @@
 import RDS from 'aws-sdk/clients/rds';
 import { Client } from 'pg';
 
-export const handler = async (): Promise<any[]> => {
+import { User } from './user';
+
+export const handler = async (): Promise<User[]> => {
   if (!process.env.DB_HOSTNAME) {
     throw new Error('Missing DB_HOSTNAME!');
   }
@@ -24,6 +26,6 @@ export const handler = async (): Promise<any[]> => {
 
   await client.connect();
 
-  const { rows } = await client.query('SELECT * FROM users;');
+  const { rows } = await client.query<User>('SELECT * FROM users;');
   return rows;
 };

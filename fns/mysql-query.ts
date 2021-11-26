@@ -1,13 +1,13 @@
 import RDS from 'aws-sdk/clients/rds';
-import { createConnection, OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
+import { createConnection } from 'mysql2/promise';
+
+import { User } from './user';
 
 /**
  * Execute a simple query. RDS Signer is used to generate a temporary token to connect.
  * This connection is over ssl.
  */
-export const handler = async (): Promise<
-  RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[] | ResultSetHeader
-> => {
+export const handler = async (): Promise<User[]> => {
   if (!process.env.DB_HOSTNAME) {
     throw new Error('Missing DB_HOSTNAME!');
   }
@@ -31,6 +31,6 @@ export const handler = async (): Promise<
     user: iamUser,
   });
 
-  const [rows] = await connection.query('SELECT * FROM users;');
+  const [rows] = await connection.query<User[]>('SELECT * FROM users;');
   return rows;
 };
