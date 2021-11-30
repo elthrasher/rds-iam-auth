@@ -18,6 +18,7 @@ export const createVpc = (scope: Stack): IVpc =>
       instanceType: InstanceType.of(InstanceClass.T4G, InstanceSize.MICRO),
       machineImage: new LookupMachineImage({
         name: 'fck-nat-*-arm64-ebs',
+        owners: ['568608671756'],
       }),
     }),
     subnetConfiguration: [
