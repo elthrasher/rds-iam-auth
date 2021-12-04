@@ -1,4 +1,6 @@
-import { CfnOutput, Construct, Stack, StackProps } from '@aws-cdk/core';
+import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+
 import { createApiGateway } from './apigateway';
 import { createCustomResources } from './custom-resources';
 import { createLambdaFunctions } from './lambda';

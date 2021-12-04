@@ -1,6 +1,7 @@
-import { HttpApi, HttpMethod } from '@aws-cdk/aws-apigatewayv2';
-import { LambdaProxyIntegration } from '@aws-cdk/aws-apigatewayv2-integrations';
-import { Stack } from '@aws-cdk/core';
+import { HttpApi, HttpMethod } from '@aws-cdk/aws-apigatewayv2-alpha';
+import { LambdaProxyIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
+import { Stack } from 'aws-cdk-lib';
+
 import { LambdaFunctions } from './lambda';
 
 export const createApiGateway = (scope: Stack, fns: LambdaFunctions): HttpApi => {

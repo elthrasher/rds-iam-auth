@@ -1,12 +1,12 @@
-import { InstanceClass, InstanceSize, InstanceType, IVpc, SubnetType } from '@aws-cdk/aws-ec2';
+import { RemovalPolicy, Stack } from 'aws-cdk-lib';
+import { InstanceClass, InstanceSize, InstanceType, IVpc, SubnetType } from 'aws-cdk-lib/aws-ec2';
 import {
   AuroraMysqlEngineVersion,
   AuroraPostgresEngineVersion,
   Credentials,
   DatabaseCluster,
   DatabaseClusterEngine,
-} from '@aws-cdk/aws-rds';
-import { RemovalPolicy, Stack } from '@aws-cdk/core';
+} from 'aws-cdk-lib/aws-rds';
 
 /*
  * Medium instance classes used as small is not availble for PostgreSQL. Small could be used for MySQL.

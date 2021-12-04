@@ -1,7 +1,7 @@
-import { RetentionDays } from '@aws-cdk/aws-logs';
-import { DatabaseCluster } from '@aws-cdk/aws-rds';
-import { ArnFormat, CustomResource, Stack } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId, Provider } from '@aws-cdk/custom-resources';
+import { RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { DatabaseCluster } from 'aws-cdk-lib/aws-rds';
+import { ArnFormat, CustomResource, Stack } from 'aws-cdk-lib/core';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId, Provider } from 'aws-cdk-lib/custom-resources';
 
 import { LambdaFunctions } from './lambda';
 

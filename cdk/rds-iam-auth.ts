@@ -1,4 +1,4 @@
-import { App } from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib';
 import { RDSIAMAuthStack } from './rds-iam-auth-stack';
 
 const app = new App();

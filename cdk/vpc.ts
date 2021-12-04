@@ -1,3 +1,4 @@
+import { Stack } from 'aws-cdk-lib';
 import {
   InstanceClass,
   InstanceSize,
@@ -7,8 +8,7 @@ import {
   NatInstanceProvider,
   SubnetType,
   Vpc,
-} from '@aws-cdk/aws-ec2';
-import { Stack } from '@aws-cdk/core';
+} from 'aws-cdk-lib/aws-ec2';
 
 export const createVpc = (scope: Stack): IVpc =>
   new Vpc(scope, 'rds-iam-vpc', {

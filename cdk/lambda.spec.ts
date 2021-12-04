@@ -1,7 +1,7 @@
-import { SynthUtils } from '@aws-cdk/assert';
-import { InstanceClass, InstanceSize, InstanceType, SubnetType } from '@aws-cdk/aws-ec2';
-import { AuroraMysqlEngineVersion, Credentials, DatabaseCluster, DatabaseClusterEngine } from '@aws-cdk/aws-rds';
-import { App, RemovalPolicy, SecretValue, Stack } from '@aws-cdk/core';
+import { Template } from 'aws-cdk-lib/assertions';
+import { InstanceClass, InstanceSize, InstanceType, SubnetType } from 'aws-cdk-lib/aws-ec2';
+import { AuroraMysqlEngineVersion, Credentials, DatabaseCluster, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds';
+import { App, RemovalPolicy, SecretValue, Stack } from 'aws-cdk-lib/core';
 
 import { createLambdaFunctions } from './lambda';
 import { createClusters } from './rds';
@@ -13,7 +13,7 @@ describe('API Gateway', () => {
     const stack = new Stack(app, 'ApiTestStack', { env: { account: '123456789', region: 'us-east-1' } });
     const vpc = createVpc(stack);
     createLambdaFunctions(stack, vpc, createClusters(stack, vpc));
-    const cfn = SynthUtils.toCloudFormation(stack);
+    const cfn = Template.fromStack(stack).toJSON();
     const resources = cfn.Resources;
     const matchObject: { Parameters: Record<string, unknown>; Resources: Record<string, unknown> } = {
       Parameters: expect.any(Object),
@@ -53,7 +53,7 @@ describe('API Gateway', () => {
         removalPolicy: RemovalPolicy.DESTROY,
       });
       createLambdaFunctions(stack, vpc, { mysql: cluster, pg: cluster });
-      SynthUtils.toCloudFormation(stack);
+      Template.fromStack(stack);
     } catch (e) {
       expect((e as Error).message).toBe('Database lacks a secret!');
     }
