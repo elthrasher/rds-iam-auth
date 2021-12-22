@@ -116,7 +116,7 @@ Object {
             Array [
               "integrations/",
               Object {
-                "Ref": "IamAuthApiGETmysqlHttpIntegration1b8863df5c8e8d064332de0db102ee79C10A97FD",
+                "Ref": "IamAuthApiGETmysqlMySQLIntegrationC4E23496",
               },
             ],
           ],
@@ -124,7 +124,7 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Route",
     },
-    "IamAuthApiGETmysqlHttpIntegration1b8863df5c8e8d064332de0db102ee79C10A97FD": Object {
+    "IamAuthApiGETmysqlMySQLIntegrationC4E23496": Object {
       "Properties": Object {
         "ApiId": Object {
           "Ref": "IamAuthApi41DCA1AF",
@@ -140,7 +140,7 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Integration",
     },
-    "IamAuthApiGETmysqlTestStackIamAuthApiGETmysqlCC248394PermissionF66F7886": Object {
+    "IamAuthApiGETmysqlMySQLIntegrationPermissionE8151EDF": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
@@ -182,7 +182,7 @@ Object {
             Array [
               "integrations/",
               Object {
-                "Ref": "IamAuthApiGETpgHttpIntegration0c2515d5edf89b988be57ae51a61947b20D0A346",
+                "Ref": "IamAuthApiGETpgPGIntegration7CE399C6",
               },
             ],
           ],
@@ -190,7 +190,7 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Route",
     },
-    "IamAuthApiGETpgHttpIntegration0c2515d5edf89b988be57ae51a61947b20D0A346": Object {
+    "IamAuthApiGETpgPGIntegration7CE399C6": Object {
       "Properties": Object {
         "ApiId": Object {
           "Ref": "IamAuthApi41DCA1AF",
@@ -206,7 +206,7 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Integration",
     },
-    "IamAuthApiGETpgTestStackIamAuthApiGETpg21CB8058Permission94983D0D": Object {
+    "IamAuthApiGETpgPGIntegrationPermission4EF48CC0": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
