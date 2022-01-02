@@ -1,7 +1,7 @@
+import { App, RemovalPolicy, SecretValue, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { InstanceClass, InstanceSize, InstanceType, SubnetType } from 'aws-cdk-lib/aws-ec2';
 import { AuroraMysqlEngineVersion, Credentials, DatabaseCluster, DatabaseClusterEngine } from 'aws-cdk-lib/aws-rds';
-import { App, RemovalPolicy, SecretValue, Stack } from 'aws-cdk-lib/core';
 
 import { createLambdaFunctions } from './lambda';
 import { createClusters } from './rds';

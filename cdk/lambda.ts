@@ -1,10 +1,10 @@
+import { Duration, RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { IVpc, Port, SubnetType } from 'aws-cdk-lib/aws-ec2';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Function as LambdaFunction, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { DatabaseCluster } from 'aws-cdk-lib/aws-rds';
-import { Duration, RemovalPolicy, Stack } from 'aws-cdk-lib/core';
 
 import { getDBUserArn } from './custom-resources';
 

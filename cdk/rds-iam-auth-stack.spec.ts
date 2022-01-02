@@ -1,5 +1,5 @@
+import { App } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { App } from 'aws-cdk-lib/core';
 
 import { RDSIAMAuthStack } from './rds-iam-auth-stack';
 
